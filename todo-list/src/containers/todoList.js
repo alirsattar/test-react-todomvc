@@ -55,6 +55,26 @@ class TodoList extends Component {
       isHovered: !this.state.isHovered
     });
   };
+  todosCompleted = () => {
+    let countString = 0;
+    for (let i = 0; i < this.state.todos.length; i++) {
+      if (this.state.todos[i].completed) {
+        countString++;
+      }
+    }
+    let tasksNoun = countString === 1 ? ' todo completed' : ' todos completed';
+    return `${countString} ${tasksNoun}`;
+  };
+  todosPending = () => {
+    let countString = 0;
+    for (let i = 0; i < this.state.todos.length; i++) {
+      if (!this.state.todos[i].completed) {
+        countString++;
+      }
+    }
+    let tasksNoun = countString === 1 ? ' todo pending' : ' todos pending';
+    return `${countString} ${tasksNoun}`;
+  };
   render() {
     let todosListed = this.state.todos.map((e, i) => {
       return (
@@ -81,6 +101,12 @@ class TodoList extends Component {
               onChange={this.onInput}
             />
             <button onClick={this.addTodo}>+</button>
+            <span className="badge badge-success float-right">
+              {this.todosCompleted()}
+            </span>
+            <span className="badge badge-warning float-right">
+              {this.todosPending()}
+            </span>
           </div>
           <br />
           <div className="col-12">
