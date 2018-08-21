@@ -8,9 +8,9 @@ class TodoItem extends Component {
     return (
       <div>
         <div>
-          <li>{this.props.todo}</li>
+          <li>{this.props.todo.content}</li>
           <button onClick={this.props.delete}>Delete</button>
-          <input type="checkbox" onClick={this.props.markComplete} />
+          <input type="checkbox" onClick={this.props.complete} />
         </div>
       </div>
     );
