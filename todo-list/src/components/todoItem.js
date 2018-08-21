@@ -13,7 +13,9 @@ class TodoItem extends Component {
       >
         {console.log(this.props.completed())}
         <span className="float-left">{this.props.todo.content}</span>
-        <button onClick={this.props.delete}>Delete</button>
+        <button className="btn btn-danger" onClick={this.props.delete}>
+          Delete
+        </button>
         <input
           className="float-right"
           type="checkbox"
