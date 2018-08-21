@@ -8,9 +8,13 @@ class TodoItem extends Component {
     return (
       <div>
         <div>
-          <li>{this.props.todo.content}</li>
+          <span className="float-left">{this.props.todo.content}</span>
           <button onClick={this.props.delete}>Delete</button>
-          <input type="checkbox" onClick={this.props.complete} />
+          <input
+            className="float-right"
+            type="checkbox"
+            onClick={this.props.complete}
+          />
         </div>
       </div>
     );

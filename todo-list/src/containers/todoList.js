@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TodoItem from '../components/todoItem';
+import ReactDOM from 'react-dom';
 
 class TodoList extends Component {
   constructor() {
@@ -10,6 +11,9 @@ class TodoList extends Component {
       currentTodo: {}
     };
   }
+  componentDidUpdate() {
+    this.nameInput.focus();
+  }
   onInput = e => {
     this.setState({
       currentTodo: { content: e.target.value, completed: false },
@@ -19,7 +23,11 @@ class TodoList extends Component {
   addTodo = () => {
     let todosCopy = this.state.todos.slice();
     todosCopy.push(this.state.currentTodo);
-    this.setState({ todos: todosCopy, currentTodo: '' });
+    this.setState({
+      todos: todosCopy,
+      currentTodo: { content: '', completed: false },
+      inputFieldValue: ''
+    });
   };
   destroyTodo = i => {
     let todosCopy = this.state.todos.slice();
@@ -28,7 +36,9 @@ class TodoList extends Component {
   };
   markComplete = i => {
     let todosCopy = this.state.todos.slice();
-    todosCopy[i].completed = true;
+    todosCopy[i].completed
+      ? (todosCopy[i].completed = false)
+      : (todosCopy[i].completed = true);
     this.setState({ todos: todosCopy });
     console.log(todosCopy[i].completed);
   };
@@ -46,14 +56,23 @@ class TodoList extends Component {
     });
     return (
       <div className="container my-5">
-        <div className="row col-12 mx-auto">
-          <input
-            placeholder="Enter New Todo Item"
-            value={this.state.inputFieldValue}
-            onChange={this.onInput}
-          />
-          <button onClick={this.addTodo}>Add Todo</button>
-          <ul>{todosListed}</ul>
+        <div className="mx-auto todo-list mx-auto">
+          <div className="col-12 mx-auto">
+            <input
+              ref={input => {
+                this.nameInput = input;
+              }}
+              placeholder="Enter New Todo Item"
+              value={this.state.inputFieldValue}
+              onChange={this.onInput}
+            />
+            <button onClick={this.addTodo}>+</button>
+            <br />
+          </div>
+          <br />
+          <div className="col-12">
+            <ul>{todosListed}</ul>
+          </div>
         </div>
       </div>
     );
