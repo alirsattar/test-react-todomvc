@@ -42,6 +42,13 @@ class TodoList extends Component {
     this.setState({ todos: todosCopy });
     console.log(todosCopy[i].completed);
   };
+  isCompleted = i => {
+    let todosCopy = this.state.todos.slice();
+    let classes = 'todo-item col-12 ';
+    classes += todosCopy[i].completed ? 'completed' : 'not-completed';
+    console.log(classes);
+    return classes;
+  };
   render() {
     console.log(this.state.todos);
     let todosListed = this.state.todos.map((e, i) => {
@@ -51,13 +58,14 @@ class TodoList extends Component {
           todo={e}
           delete={() => this.destroyTodo(i)}
           complete={() => this.markComplete(i)}
+          completed={() => this.isCompleted(i)}
         />
       );
     });
     return (
-      <div className="container my-5">
-        <div className="mx-auto todo-list mx-auto">
-          <div className="col-12 mx-auto">
+      <div className="container my-5 mx-auto">
+        <div className="mx-auto todo-list">
+          <div className="col-12">
             <input
               ref={input => {
                 this.nameInput = input;
@@ -67,7 +75,6 @@ class TodoList extends Component {
               onChange={this.onInput}
             />
             <button onClick={this.addTodo}>+</button>
-            <br />
           </div>
           <br />
           <div className="col-12">
