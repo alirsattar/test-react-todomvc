@@ -5,10 +5,12 @@ import ReactDOM from 'react-dom';
 class TodoList extends Component {
   constructor() {
     super();
+    this.isHovered = this.isHovered.bind(this);
     this.state = {
       inputFieldValue: '',
       todos: [],
-      currentTodo: {}
+      currentTodo: {},
+      isHovered: false
     };
   }
   componentDidUpdate() {
@@ -40,17 +42,20 @@ class TodoList extends Component {
       ? (todosCopy[i].completed = false)
       : (todosCopy[i].completed = true);
     this.setState({ todos: todosCopy });
-    console.log(todosCopy[i].completed);
   };
   isCompleted = i => {
     let todosCopy = this.state.todos.slice();
     let classes = 'todo-item col-12 ';
     classes += todosCopy[i].completed ? 'completed' : 'not-completed';
-    console.log(classes);
+    classes += this.state.isHovered ? ' destroy' : '';
     return classes;
   };
+  isHovered = i => {
+    this.setState({
+      isHovered: !this.state.isHovered
+    });
+  };
   render() {
-    console.log(this.state.todos);
     let todosListed = this.state.todos.map((e, i) => {
       return (
         <TodoItem
@@ -59,13 +64,14 @@ class TodoList extends Component {
           delete={() => this.destroyTodo(i)}
           complete={() => this.markComplete(i)}
           completed={() => this.isCompleted(i)}
+          hoverCheck={() => this.isHovered(i)}
         />
       );
     });
     return (
       <div className="container my-5 mx-auto">
         <div className="mx-auto todo-list">
-          <div className="col-12">
+          <div className="input-container col-12">
             <input
               ref={input => {
                 this.nameInput = input;

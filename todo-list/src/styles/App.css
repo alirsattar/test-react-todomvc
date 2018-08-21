@@ -12,3 +12,11 @@
 
 .todo-item {
 }
+
+.input-container {
+  width: 500px;
+}
+
+.destroy {
+  color: rgba(255, 0, 0, 1);
+}
