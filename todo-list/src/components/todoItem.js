@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class TodoItem extends Component {
   constructor() {
     super();
+    // HOVER STATE CONSTRUCTOR INFO WILL GO HERE
   }
   render() {
     return (
